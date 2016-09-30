@@ -1,0 +1,80 @@
+<div class="container" ng-controller="ReservationsController">
+
+   <!--
+   Restaurant: {{restaurant}}  
+   Restaurant Name: {{restaurantName}}
+   IsLoggedIn: {{isLoggedIn}}
+   -->
+   
+   <div class="row">
+      <div class="col-xs-12 col-sm-6">
+         <div class="row">
+            <h3><strong>Reservation @ {{restaurantName}}</strong></h3>
+         </div>
+         <div class="form-group row">
+            <label for="date">Date</label>
+            <datepicker date-format="M/d/yyyy" selector="form-control" date-min-limit="{{minDate}}">
+               <div class="input-group">
+                  <input ng-disabled="isAllControlsDisabled" class="form-control" placeholder="Choose a date" 
+                  ng-model="reservation.date" 
+                  ng-change="fetchAvailableTimeslots()" />
+                  <span class="input-group-addon" style="cursor: pointer">
+                     <i class="fa fa-lg fa-calendar"></i>
+                  </span>
+               </div>
+            </datepicker>
+            
+         </div>
+         <div class="form-group row">
+            <label for="numPeople">Number of People</label>
+            <select ng-disabled="isAllControlsDisabled" ng-change="fetchAvailableTimeslots()" id="nPeople" class="form-control" ng-model="reservation.nPeople">
+               <option value="1">1</option>
+               <option value="2" selected>2</option>
+               <option value="3">3</option>
+               <option value="4">4</option>
+               <option value="5">5</option>
+               <option value="6">6</option>
+               <option value="7">7</option>
+               <option value="8">8</option>
+            </select>
+         </div>
+         <div class="form-group row">
+            <label for="time">Time</label>
+            <select ng-disabled="isTimeslotDropdownDisabled" id="time" class="form-control" ng-model="reservation.timeslot">
+               <option ng-repeat="timeslot in availableTimeslots" value="{{timeslot._id}}">{{timeslot.from}}</option>
+               <!--
+               <option value="2" selected>2</option>
+               <option value="3">3</option> 
+               <option value="4">4</option>
+               <option value="5">5</option>
+               <option value="6">6</option>
+               <option value="7">7</option>
+               <option value="8">8</option>
+               -->
+            </select>
+         </div>
+         <div class="form-group row">
+            <label for="specialReq">Special Request</label>
+            <textarea ng-disabled="isAllControlsDisabled" class="form-control" row="6" id="specialReq" ng-model="reservation.specialReq"></textarea>
+         </div>         
+         <div class="form-group row">
+            <div id="reservationBtn" class="col-xs-2">
+               <button ng-disabled="isSubmitButtonDisabled()" class="btn btn-info" ng-click="submitReservation()">Submit</button>
+            </div>
+            <div class="hidden-sm hidden-md hidden-lg col-xs-10">
+               <div id="reservationMsgForMobile" class="{{reservationMsgType}}" ng-if="hasMsg">{{infoMsg}}</div>
+            </div>
+         </div>
+      </div>
+      <div class="hidden-xs col-sm-1"></div>
+      <div class="hidden-xs col-xs-12 col-sm-5">
+         <div class="row">
+            <h3 id="reservationHeader"></h3>
+            <div class="{{reservationMsgType}}" ng-if="hasMsg">{{infoMsg}}</div>
+         </div>
+      </div>   
+   
+   </div>
+   
+
+</div>

@@ -1,0 +1,46 @@
+{
+  "name": "RestaurantsOnline",
+  "description": "Restaurants Online Application",
+  "main": "server.js",
+  "authors": [
+    "Brian Woo"
+  ],
+  "license": "MIT",
+  "keywords": [
+    "OpenShift",
+    "Node.js",
+    "application",
+    "openshift"
+  ],
+  "moduleType": [],
+  "homepage": "",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular-mocks": "~1.5.5",
+    "angular-resource": "~1.5.5",
+    "angular-route": "~1.5.5",
+    "bootstrap": "~3.3.6",
+    "angular-ui-router": "~0.3.0",
+    "font-awesome": "~4.6.3",
+    "ng-dialog": "~0.6.1",
+    "angular": "~1.5.5",
+    "angular-carousel": "~1.0.1",
+    "ngmap": "~1.17.3",
+    "angularjs-datepicker": "~2.1.3",
+    "angular-filter": "~0.5.8",
+    "angular-strap": "~2.3.8"
+  },
+  "devDependencies": {
+    "angular-carousel": "~1.0.1"
+  },
+  "resolutions": {
+    "angular": "~1.5.5"
+  }
+}

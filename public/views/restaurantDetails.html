@@ -1,0 +1,108 @@
+<div class="container" ng-controller="RestaurantDetailsController">
+   <!-- <h2>Restaurant {{restaurantDetails}}</h2> -->
+
+   
+   <!-- div class="outerContainer" -->
+      <div class="row">
+         <!-- LEFT Column -->
+         <div class="col-xs-12 col-sm-6">
+                       
+               <!-- restaurant name -->
+               <div class="row">
+                  <h3><strong>{{restaurantDetails.name}}</strong></h3>
+                  <h6 class="costIndicator">{{getCostIndicator(restaurantDetails.cost.low, restaurantDetails.cost.high)}}</h6>
+               </div>
+               
+               <!-- descriptions -->
+               <div class="row">
+                  
+                  <div>{{restaurantDetails.description}}</div>
+               </div>
+
+               <!-- photos -->
+               <div class="row">
+                  <h4 class="sub-heading"><strong>Photos</strong></h4>
+                  <div class="details">
+                  </div>
+                  <div class="carousel-demo">
+                     <ul rn-carousel rn-carousel-index="carouselIndex2" rn-carousel-pause-on-hover rn-carousel-buffered class="carousel2">
+                        <li ng-repeat="slide in restaurantDetails.photos">
+                           <div ng-style="{'background-image': 'url(' + slide + ')'}" class="bgimage">
+                           </div>
+                        </li>
+                     </ul>
+
+                     <div class="rn-carousel-indicator custom-indicator">
+                        <span ng-repeat="slide in restaurantDetails.photos" ng-class="{active: $index==$parent.carouselIndex2}" ng-click="$parent.carouselIndex2 = $index">●</span>
+                     </div>
+                  </div>
+               </div>  
+               
+               <!-- reservations -->
+               <div class="row">
+                  <h4 class="sub-heading"><strong>Reservations</strong></h4>
+                  <!--
+                  <a ui-sref="{{isLoggedIn ? 'app.reservations({rid: restaurantDetails._id})' : login() }}" class="btn btn-info" role="button">Make a Reservation Online</a>
+                  -->
+                  <a ng-click="goToReservations()" class="btn btn-info" role="button">Make a Reservation Online</a>
+                  <p>Or Call Us at: {{restaurantDetails.phone}}</p>
+               </div>  
+               
+               <!-- take-out ordering -->
+               <div class="row">
+                  <h4 class="sub-heading"><strong>Take-out Ordering</strong></h4>
+                  <!--a href="#" class="btn btn-info" role="button">Online Ordering and Menu</a -->
+                  <a ng-click="goToOrdering()" class="btn btn-info" role="button">Online Ordering and Menu</a>
+                  <p>Or Call Us at: {{restaurantDetails.phone}}</p>
+               </div>               
+            
+         </div>
+         
+         
+         <!-- RIGHT Column -->
+         <div class="col-xs-12 col-sm-6">
+
+            <!-- restaurant Info -->
+            <div class="row" >
+               <h4 class="sub-heading"><strong>Restaurant Info</strong></h4>
+               <div id="gmap" map-lazy-load="https://maps.google.com/maps/api/js" 
+                    map-lazy-load-params={{googleMapsUrl}}>
+                  <ng-map center={{latAndLon}} zoom="15">
+                     <marker position={{latAndLon}} 
+                             title={{restaurantDetails.name}} 
+                             animation="Animation.DROP"></marker>
+                  </ng-map>
+               </div>
+
+            </div>
+
+            <!-- additional restaurant info -->
+            <div class="row">
+               <p></p>
+               <p>Address: {{restaurantDetails.address}}</p>
+               <p>Cuisine: {{restaurantDetails.cuisineDesc.join(" | ")}}</p>
+               <p>Cost: ${{restaurantDetails.cost.low}} - ${{restaurantDetails.cost.high}}</p>
+               <p>Payment Options: {{restaurantDetails.paymentOptions.join(" | ")}}</p>
+               <p>Website: <a href={{restaurantDetails.website}} target="_blank">{{restaurantDetails.website}}</a></p>
+               <p>Phone: {{restaurantDetails.phone}}</p>
+            </div>              
+               
+            <!-- hours -->
+            <div class="row">
+               <h4 class="sub-heading"><strong>Business Hours</strong></h4>
+               <p>Monday: {{restaurantDetails.businessHours.monday.open}} - {{restaurantDetails.businessHours.monday.close}}</p>
+               <p>Tuesday: {{restaurantDetails.businessHours.tuesday.open}} - {{restaurantDetails.businessHours.tuesday.close}}</p>
+               <p>Wednesday: {{restaurantDetails.businessHours.wednesday.open}} - {{restaurantDetails.businessHours.wednesday.close}}</p>
+               <p>Thursday: {{restaurantDetails.businessHours.thursday.open}} - {{restaurantDetails.businessHours.thursday.close}}</p>
+               <p>Friday: {{restaurantDetails.businessHours.friday.open}} - {{restaurantDetails.businessHours.friday.close}}</p>
+               <p>Saturday: {{restaurantDetails.businessHours.saturday.open}} - {{restaurantDetails.businessHours.saturday.close}}</p>
+               <p>Sunday: {{restaurantDetails.businessHours.sunday.open}} - {{restaurantDetails.businessHours.sunday.close}}</p>
+            </div>             
+            
+         </div>           
+         
+      </div>
+   <!-- /div -->
+   
+</div>   
+

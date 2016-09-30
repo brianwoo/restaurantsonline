@@ -1,0 +1,70 @@
+<div class="container" ng-controller="MyReservationsController">
+   
+   <div class="row">
+      <h3 id="myOrdersHeader"><strong>Your Reservations</strong></h3>
+   </div>
+   
+   <div class="row" ng-repeat="eachReso in myReservations">
+      
+      <div class="row"> <!--  -->
+         <div class="col-xs-12 col-sm-4 col-sm-push-8" >
+            <div class="row">
+               <div class="col-xs-12">
+                  <p><strong>Customer:</strong> {{ eachReso.bookedBy.firstname }} {{ eachReso.bookedBy.lastname }}</p>
+               </div>
+            </div>
+            <div class="row">
+               <div class="col-xs-12">
+                  <p><strong>Num of People:</strong> {{ eachReso.numPeople }}</p>
+               </div>
+            </div>
+            <div class="row">
+               <div class="col-xs-12">
+                  <p><strong>Reserved Table:</strong> {{ eachReso.table.tableNum }}</p>
+               </div>
+            </div>  
+            <div class="row">
+               <div class="col-xs-12">
+                  <p><strong>Special Req: </strong>{{ eachReso.specialReq }}</p>
+               </div>
+            </div>             
+            
+         </div> <!--  -->
+         <div class="col-xs-12 col-sm-8 col-sm-pull-4">
+            <div class="row">
+               <div class="col-xs-7">
+                  <div class="row">
+                     <div class="col-xs-12">
+                        <p><strong>Date: </strong> {{ eachReso.prettyDate }} @ {{ eachReso.timeSlot.from }}</p>
+                     </div>
+                  </div>
+                  <div class="row">
+                     <div class="col-xs-12"> 
+                        <p><strong>Restaurant: </strong>{{ eachReso.restaurant.name }} (<a target="_blank" href="http://maps.google.com?q={{eachReso.restaurant.lat}},{{eachReso.restaurant.lon}}">Map</a>)</p>
+                     </div>
+                  </div>
+                  
+               </div>
+               <div ng-if="isRestaurantMgr" class="form-group col-xs-5">
+                  <!-- <p><strong>Status: </strong>{{ eachReso.status }}</p> -->
+                  <label for="reservationStatuses">Status:</label>
+                  <select ng-change="setReservationStatus(eachReso._id, eachReso.status)" class="form-control" id="reservationStatuses" ng-model="eachReso.status" 
+                          ng-options="x for x in reservationStatuses"></select>
+               </div>       
+               <div ng-if="!isRestaurantMgr" class="form-group col-xs-5">
+                  <p><strong>Status: </strong>{{ eachReso.status }}</p>
+               </div> 
+            </div>
+            
+         </div>
+      </div>
+      
+      <div class="row">
+         <div class="col-xs-12"><hr/></div>
+      </div>
+      
+      
+   
+   </div>
+   
+</div>

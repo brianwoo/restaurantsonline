@@ -1,0 +1,77 @@
+<div class="container" ng-controller="OrderingController">
+   
+   <!--
+   food categories: {{foodCategories}}
+   menu: {{menu}}
+   -->
+   <div class="row">
+      <div class="col-xs-12">
+         <h3><strong>Online Ordering @ {{ restaurantName }}</strong></h3>
+      </div>
+      
+   </div>
+   
+   <div class="row">
+      
+      <!-- food category panel -->
+      <div class="hidden-xs hidden-sm col-md-2 col-lg-2" >
+         <div bs-affix data-offset-top="128"  data-offset-bottom="190">
+            <div class="row">
+               <div class="col-xs-12">
+                  <h3>Categories</h3>
+               </div>
+            </div>
+            <ul class="nav nav-pills nav-stacked">
+               <li ng-class="{active:isCategorySelected(f.categoryName)}" ng-repeat="f in foodCategories">
+                  <a ng-click="scrollTo(f.categoryName)" href="" data-toggle="pill">{{f.categoryName}}</a>
+                  <!-- a href="#{{f.categoryName}}" data-toggle="pill">{{f.categoryName}}</a-->
+               </li>
+            </ul>            
+         </div>
+      </div>
+      
+      <!-- menu panel -->
+      <div class="menuPanel col-xs-12 col-sm-6 col-md-5 col-lg-5">
+         <div class="row">
+            <div class="col-xs-12">
+               <h3>Menu</h3>
+            </div>
+         </div>
+         <div class="row">
+            <div class="col-xs-12">
+               <div class="list-group" ng-repeat="(key, value) in menu | groupBy: 'foodCategory.categoryName'">
+
+                  <div id="{{ key }}" class="borderless list-group-item">
+                     <div class="row">
+                        <h4 class="list-group-item-heading"><strong>{{ key }}</strong></h4>
+                     </div>
+                     <div class="row" class="list-group-item-text" ng-repeat="menuitem in value">
+                        <div class="row">
+                           <div class="dishName col-xs-8">{{ menuitem.dishName }}</div>
+                           <div class="dishPrice col-xs-3">{{menuitem.dishPriceCurrency | currency}}</div>
+                           <div class="dishAddButton col-xs-1"><i ng-click="addToBasket(menuitem._id, menuitem.dishName, menuitem.dishPriceCurrency)" class="fa fa-plus-square fa-lg" aria-hidden="true"></i></div>
+                        </div>
+                        <div class="row">
+                           <h6 id="orderDishDesc" class="col-xs-12">{{ menuitem.dishDesc }}</h6>
+                        </div>
+                     </div>
+
+                  </div>
+               </div>               
+            </div>
+         </div>
+      </div>
+      
+      <!-- summary panel bs-affix only applies to sm and bigger -->
+      <div class="hidden-xs col-sm-6 col-md-5 col-lg-5">         
+         <div  bs-affix data-offset-top="128"  data-offset-bottom="190" ng-include="'/views/orderingSummary.html'"></div>
+      </div>
+      
+      <div class="col-xs-12 hidden-sm hidden-md hidden-lg">
+         <div  ng-include="'/views/orderingSummary.html'"></div>
+      </div>
+      <!-- end summary panel logic -->
+      
+      
+   </div>
+</div>

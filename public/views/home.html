@@ -1,0 +1,77 @@
+<div id="homeContainer" class="container" ng-controller="HomeController">
+   <h3>Restaurants Serving in Your Area:</h3>
+   
+   <div class="row hidden-sm hidden-md hidden-lg">
+      <div class="col-xs-12">
+                  
+         
+         <div id="cuisineTypeDropdownArea" class="dropdown">
+            <button class="btn btn-primary dropdown-toggle" type="button" id="cuisineTypeDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+               Cuisine Type: {{selectedCategory}}
+               <span class="caret"></span>
+            </button>
+            <ul class="dropdown-menu" aria-labelledby="cuisineTypeDropdown">
+               <li><a ng-click="selectCategory({id: '', desc: 'All'})">All</a> </li>
+               <li ng-repeat="a in cuisineCategories">
+                  <a ng-click="selectCategory({id: a._id, desc: a.categoryDesc})">{{a.categoryDesc}}</a>
+               </li>
+            </ul>
+         </div>
+         
+      </div>
+   </div>
+   
+   
+   
+   
+   
+   <div class="row">
+      
+      <div class="tabbable tabs-left">
+
+         <div id="categoryPanelLeft" class="well col-sm-3 hidden-xs">
+            
+            <ul class="nav nav-pills nav-stacked">
+               
+               <li ng-class="{active:isActive('')}">
+                  <a ng-click="selectCategory({id: '', desc: 'All'})" href="#a" data-toggle="pill">All</a>
+               </li>
+               
+               <li ng-class="{active:isActive(a._id)}" ng-repeat="a in cuisineCategories">
+                  <a ng-click="selectCategory({id: a._id, desc: a.categoryDesc})" href="#a" data-toggle="pill">{{a.categoryDesc}}</a>
+               </li>
+
+            </ul>
+         </div>
+
+         <div id="categoryPanelSeparator" class="col-fixed-240 col-sm-1"></div>
+         
+         <div id="categoryPanelRight" class="well col-xs-12 col-sm-8">
+
+            <div class="tab-content " >
+               <div class="tab-pane fade in active "  id="a">
+
+                     <div ng-repeat="eachRest in restaurants | filter:cuisineCategoryFilter">
+                        <div class="row">
+                           <div class="col-xs-8">
+                              <p><strong>
+                                 <a ui-sref="app.restaurantDetails({rid: eachRest._id})">{{eachRest.name}}</a>
+                              </strong></p>
+                              <h6 class="costIndicator">{{getCostIndicator(eachRest.cost.low, eachRest.cost.high)}}</h6>
+                              <p>{{eachRest.cuisineDesc.join(" | ")}}</p>
+                              <p>{{eachRest.address}}</p>
+                           </div>
+                           <div class="col-xs-4">
+                              <img id="mainPhoto" ng-src="{{ eachRest.mainPhoto }}"></img>
+                           </div>  
+                        </div>
+                        <hr>
+                     </div>   
+                  <!-- -->
+                                 
+               </div>             
+            </div>
+         </div>
+      </div>
+   </div>
+</div>

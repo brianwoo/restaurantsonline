@@ -1,0 +1,64 @@
+<div class="container" ng-controller="MyOrdersController">
+   
+   <div class="row">
+      <h3 id="myOrdersHeader"><strong>Your Orders</strong></h3>
+   </div>
+   
+   <div class="row" ng-repeat="eachOrder in myOrders">
+      
+      <div class="row"> <!--  -->
+         <div class="col-xs-12 col-sm-4 col-sm-push-8" >
+            <div class="row">
+               <div class="col-xs-12">
+                  <p><strong>{{ eachOrder.user.firstname }} {{ eachOrder.user.lastname }}</strong> ordered items:</p>
+               </div>
+            </div>
+            <div class="row" ng-repeat="eachItem in eachOrder.menuItems">
+               <div class="col-xs-12">
+                  <p><i>{{ eachItem.numOfOrders }} {{ eachItem.menuItem.dishName }}</i></p>
+               </div>
+            </div>
+            
+         </div> <!--  -->
+         <div class="col-xs-12 col-sm-8 col-sm-pull-4">
+            <div class="row">
+               <div class="col-xs-7">
+                  <div class="row">
+                     <div class="col-xs-12">
+                        <p><strong>Ordered at: </strong> {{ convertDateTime(eachOrder.createdAt) }}</p>
+                     </div>
+                  </div>
+                  <div class="row">
+                     <div class="col-xs-12"> 
+                        <p><strong>Pick-up at: </strong>{{ eachOrder.restaurant.name }} (<a target="_blank" href="http://maps.google.com?q={{eachOrder.restaurant.lat}},{{eachOrder.restaurant.lon}}">Map</a>)</p>
+                     </div>
+                  </div>
+                  <div class="row">
+                     <div class="col-xs-12">
+                        <p><strong>Special Req: </strong>{{ eachOrder.specialReq }}</p>
+                     </div>
+                  </div>                   
+               </div>
+               <div ng-if="isRestaurantMgr" class="form-group col-xs-5">
+                  <!-- <p><strong>Status: </strong>{{ eachOrder.status }}</p> -->
+                  <label for="orderStatuses">Status:</label>
+                  <select ng-change="setOrderStatus(eachOrder._id, eachOrder.status)" class="form-control" id="orderStatuses" ng-model="eachOrder.status" 
+                          ng-options="x for x in orderStatuses"></select>
+               </div>       
+               <div ng-if="!isRestaurantMgr" class="form-group col-xs-5">
+                  <p><strong>Status: </strong>{{ eachOrder.status }}</p>
+               </div> 
+            </div>
+            
+         </div>
+      </div>
+      
+      <div class="row">
+         <div class="col-xs-12"><hr/></div>
+      </div>
+      
+      
+   
+   </div>
+   
+</div>

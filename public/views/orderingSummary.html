@@ -1,0 +1,131 @@
+         <!--div bs-affix data-offset-top="72"  data-offset-bottom="150" -->
+            <div class="row">
+               <div class="col-xs-12">
+                  <h3>Your Order</h3>
+               </div>
+            </div>
+            <div ng-if="isBasketEmpty()" class="row">
+               <div class="col-xs-12">
+                  <p>There are no items in your order</p>
+               </div>              
+            </div>
+            <div ng-if="!isBasketEmpty()" class="row" ng-repeat="menuItem in itemsAdded | filter: {added: true}">
+               
+               <div class="dishMinusButton col-xs-1">
+                     <i ng-click="removeFromBasket(menuItem.menuItem, menuItem.index)" 
+                        class="fa fa-minus-square fa-lg" aria-hidden="true"></i>
+               </div>
+               <div class="dishName col-xs-8">
+                  {{menuItem.dishName}}
+               </div>
+               
+               <div class="dishPrice col-xs-3">
+                  {{menuItem.dishPrice | currency}}
+               </div>            
+               
+               <!--
+               <div class="col-xs-12">
+                  this is a test test test test test
+               </div>
+               -->
+            </div>
+
+            <!-- divider -->
+            <div ng-if="!isBasketEmpty()" class="row">
+               <div class="col-xs-12">
+                  <hr/>
+               </div>
+            </div>
+
+            <!-- SUBTOTAL -->
+            <div ng-if="!isBasketEmpty()" class="row">
+               <div class="col-xs-6">
+                  SUBTOTAL
+               </div>
+               <div class="dishPrice col-xs-6">
+                  {{ itemsAddedSubTotal | currency }}
+               </div>               
+            </div>
+
+            <!-- TAX -->
+            <div ng-if="!isBasketEmpty()" class="row">
+               <div class="col-xs-6">
+                  Tax (5%)
+               </div>
+               <div class="dishPrice col-xs-6">
+                  {{ itemsAddedSubTotalTax | currency }}
+               </div>               
+            </div>
+
+            <!-- TOTAL -->
+            <div ng-if="!isBasketEmpty()" class="row">
+               <div class="col-xs-6">
+                  <strong>TOTAL</strong>
+               </div>
+               <div class="dishPrice col-xs-6">
+                  <strong>{{ itemsAddedGrandTotal | currency }}</strong>
+               </div>               
+            </div>
+
+            <!-- divider -->
+            <div ng-if="!isBasketEmpty()" class="row">
+               <div class="col-xs-12">
+                  <hr/>
+               </div>
+            </div>
+
+            <!-- Pickup -->
+            <div ng-if="!isBasketEmpty()" class="row">
+               <div class="col-xs-6">
+                  <strong>Pick-Up</strong>
+               </div>
+               <div class="dishPrice col-xs-6">
+                  <strong>{{ pickupTime }} mins</strong>
+               </div>               
+            </div>
+
+            <!-- divider -->
+            <div ng-if="!isBasketEmpty()" class="row">
+               <div class="col-xs-12">
+                  <hr/>
+               </div>
+            </div>
+
+            <!-- note -->
+            <div ng-if="!isBasketEmpty()" class="row">
+               <div class="form-group col-xs-12">
+                  <label for="orderingNote">Additional Requests:</label>
+                  <textarea ng-readonly="isOrderDone" class="form-control" rows="6" id="orderingNote" 
+                            ng-model="order.specialReq"></textarea>
+               </div>
+            </div>
+
+            <div ng-if="!isBasketEmpty()" class="row">
+               <div class="col-xs-4">
+                  <button ng-disabled="isOrderDone" ng-click="orderNow()" type="button" class="btn btn-info">Order Now</button>
+               </div>
+               <div class="orderMsg col-xs-8">
+                  <p class=" reservationSuccess" ng-if="isOrderDone && isOrderSuccessful">Success! Thanks for ordering at {{ restaurantName }}!</p>
+                  <p class=" reservationFailed" ng-if="isOrderDone && !isOrderSuccessful">Sorry, we were unable to submit your order</p>
+               </div>
+            </div>  
+
+            <div class="row">
+               <div class="col-xs-12"><p></p></div>
+            </div>
+            <!--
+            <div class="row">
+               <div class="col-xs-12"></div>
+            </div>
+            <div class="row">
+               <div class="col-xs-12"></div>
+            </div>
+            <div class="row">
+               <div class="col-xs-12"></div>
+            </div>
+            <div class="row">
+               <div class="col-xs-12"></div>
+            </div>
+            -->
+
+         <!--/div -->
